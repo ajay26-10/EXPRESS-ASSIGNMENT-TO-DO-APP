@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="text-center mt-[150px] border-2 w-[500px] mx-auto">
+        <h1 class="text-4xl">To do List</h1>
+        <div class="mt-6">
+            <a href="/create" class="border-2 gap-2 bg-blue-200">Create a Task</a>
+        </div>
+        <div class="my-6">
+            <input type="text" id="taskID" name="taskID" placeholder="Enter Task ID" class="border-2">
+            <button class="border-2 bg-slate-200" onclick="redirectToTask()">View Task</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectToTask() {
+            const taskID = document.getElementById("taskID").value;
+            const url = `/view/${taskID}`;
+            console.log(taskID);
+            console.log(url);
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

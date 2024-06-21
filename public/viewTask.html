@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tasks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-blue-200">
+    <div class="w-[500px] mx-auto mt-[100px] border-2 bg-slate-200">
+        <div class="w-[300px] mx-auto ">
+            <h1 class="text-3xl font-bold">TO-DO LIST</h1>
+        </div>
+        <h3 class="text-2xl font-medium">Task ID</h3>
+        <span id="taskID" class="font-xl"></span>
+        <h2  class="text-2xl font-medium">Task Name</h2>
+        <span id="taskName" class="font-xl"></span>
+        <h2  class="text-2xl font-medium">Task Details</h2>
+        <p id="taskDetail" class="text-xl"></p>
+
+    </div>
+    <div class="mt-4 ml-[500px]">
+        <a href="/" class="border-2 bg-green-300 p-2">Home</a>
+        <a href="/create" class="border-2 bg-green-300 p-2">Add a New Task</a>
+    </div>
+
+    <div class="w-[500px] mx-auto mt-[100px] border-2 bg-slate-200">
+        <h1>Update a Task</h1>
+        <form action="/create" id="updateTaskForm" method="POST">
+            <div>
+                <label for="taskID">Task ID</label>
+                <input type="text" id="taskID" name="taskID" required>
+            </div>
+            <div>
+                <label for="taskName">Task Name</label>
+                <input type="text" id="taskName" name="taskName" required>
+            </div>
+            <div>
+                <label for="taskDetail">Task Detail</label>
+                <input type="text" id="taskDetail" name="taskDetail" required>
+            </div>
+            <button type="submit" class="border-2 bg-green-300 p-2">Submit</button>
+        </form>
+    </div>
+
+    <div class="w-[500px] mx-auto mt-[100px] border-2 bg-slate-200">
+        <h1>Delete A Task</h1>
+        <form action="/create" id="deleteTaskForm" method="POST">
+            <div>
+                <label for="taskID">Task ID</label>
+                <input type="text" id="taskID" name="taskID" required>
+            </div>
+            <button type="submit" class="border-2 bg-green-300 p-2">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        async function fetchTaskDetails() {
+            const url = window.location.href;
+            console.log(url)
+            const id = window.location.pathname.split('/').pop()
+            try {
+                const response = await fetch(`/api/create/${id}`);
+                console.log(response)
+                if (!response.ok) {
+                    throw new Error('Failed to fetch task details');
+                }
+                const data = await response.json();
+                console.log(data)
+                document.getElementById('taskID').textContent= data.taskID;
+                document.getElementById('taskName').textContent = data.taskName;
+                document.getElementById('taskDetail').textContent = data.taskDetail;
+            } catch (error) {
+                console.error('Error fetching task details:', error);
+                document.body.innerHTML = '<p>Failed to load task details.</p>';
+            }
+        }
+        
+
+        async function deleteTask() {
+            const url = window.location.href;
+            console.log(url);
+            const id = window.location.pathname.split('/').pop();
+
+        try {
+            const response = await fetch(`/api/delete/${id}`);
+            console.log(response);
+            if (!response.ok) {
+                throw new Error('Failed to delete task');
+            }
+            document.body.innerHTML = '<p>Task deleted successfully.</p>';
+            } catch (error) {
+            console.error('Error Deleting Task:', error);
+            document.body.innerHTML = '<p>Failed to delete task.</p>';
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', fetchTaskDetails);
+    </script>
+</body>
+</html>

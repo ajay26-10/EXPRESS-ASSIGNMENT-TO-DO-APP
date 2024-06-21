@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create A Task</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="w-[700px] mx-auto mt-[100px] border-2 bg-slate-200">
+        <div class="bg-blue-200">
+            <h1 class="text-4xl ml-[250px]">Create A Task</h1>
+        </div>
+        <form id="todoform" action="/create" method="POST">
+            <div class="mt-4">
+                <label for="taskID">Task ID</label>
+                <input type="text" id="taskID" name="taskID" required class="border-2">
+            </div>
+            <div class="mt-4">
+                <label for="taskName">Task Name</label>
+                <input type="text" id="taskName" name="taskName" required class="border-2">
+            </div>
+            <div class="mt-4">
+                <label for="taskDetail">Task Detail</label>
+                <input type="text" id="taskDetail" name="taskDetail" required class="border-2">
+            </div>
+            <div class="w-[200px] mx-auto mt-4">
+                <button type="submit" class="w-[200px] bg-blue-200 border-2">Submit</button>
+            </div>
+        </form>
+    </div>    
+</body>
+</html>
